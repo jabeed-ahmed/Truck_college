@@ -6,13 +6,13 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="#">Home</a>
+      <a class="nav-link" href="home.php">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Shipper</a>
+      <a class="nav-link" href="shippers.php">Shipper</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Transport</a>
+      <a class="nav-link" href="carriers.php">Transport</a>
     </li>
     <li class="nav-item">
       <?php if (!isset($_SESSION['mail'])) {?>

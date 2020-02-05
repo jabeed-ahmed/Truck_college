@@ -1,6 +1,5 @@
 <?php
 require('session.php');
-require('nav.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -20,6 +19,31 @@ require('nav.php');
         $('[data-toggle="tooltip"]').tooltip();   
     });
 </script>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="home.php">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="shippers.php">Shipper</a>
+    </li>
+    <li class="nav-item  active">
+      <a class="nav-link" href="carriers.php">Transport</a>
+    </li>
+    <li class="nav-item">
+      <?php if (!isset($_SESSION['mail'])) {?>
+        <li class="nav-item">
+          <a class="nav-link" href="adm_login.php">Login </a>
+        </li><?php
+      }?>
+    </li>
+    <li class="nav-item">
+      <?php if (isset($_SESSION['mail'])){ ?>
+      <a class="nav-link" href="logout.php">Log Out</a>
+      <?php } ?>
+    </li>
+  </ul>
+</nav>
 <body>
   <div class="container">
     <?php
@@ -36,7 +60,7 @@ require('nav.php');
         <div class="col-md-12">
         <br/>
             <div class="page-header clearfix">
-                <h2 class="pull-left">Shipper Details</h2>
+                <h2 class="pull-left">Carriers Details</h2>
                 <br/>
             </div>
             <?php
@@ -44,15 +68,15 @@ require('nav.php');
             require_once "../connection.php";
             
             // Attempt select query execution
-            $sql = "SELECT * FROM user_s";
+            $sql = "SELECT * FROM user_t";
             if($result = mysqli_query($con, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     echo "<table class='table'>";
                         echo "<thead>";
                             echo "<tr>";
                                 echo "<th scope='col'>#</th>";
-                                echo "<th scope='col'>First Name</th>";
-                                echo "<th scope='col'>Last Name</th>";
+                                echo "<th scope='col'>Organisation Name</th>";
+                                echo "<th scope='col'>Owner Name</th>";
                                 echo "<th scope='col'>Address</th>";
                                 echo "<th scope='col'>Status</th>";
                                 echo "<th scope='col'>Action</th>";
@@ -60,20 +84,20 @@ require('nav.php');
                         echo "</thead>";
                         echo "<tbody>";
                         while($row = mysqli_fetch_array($result)){
-                            $status = $row['S_status'];
-                            if($status == 0) {
+                            $status = $row['T_status'];
+                            if($status == 1) {
                                 $status = 'active';
                             } else {
                                 $status = 'inactive';
                             }
                             echo "<tr>";
-                                echo "<td>" . $row['S_id'] . "</td>";
-                                echo "<td>" . $row['S_fname'] . "</td>";
-                                echo "<td>" . $row['S_lname'] . "</td>";
-                                echo "<td>" . $row['S_address'] . "</td>";
+                                echo "<td>" . $row['T_id'] . "</td>";
+                                echo "<td>" . $row['T_org_name'] . "</td>";
+                                echo "<td>" . $row['T_owner_name'] . "</td>";
+                                echo "<td>" . $row['T_address'] . "</td>";
                                 echo "<td>" . $status . "</td>";
                                 echo "<td>";
-                                    echo "<a href='update.php?id=". $row['S_id'] ."' title='Update'
+                                    echo "<a href='update.php?id=". $row['T_id'] ."' title='Update'
                                     data-toggle='tooltip'><Button class='btn btn-info'>Update</Button></a>";
                                 echo "</td>";
                             echo "</tr>";
