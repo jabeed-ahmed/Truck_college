@@ -30,9 +30,15 @@ require('nav.php');
     <h1>Admin Panel</h1>
     <p><strong>Note:</strong> Check the details of Shipper and Carriers.</p>
     <div class="row">
-      <div class="col" style="background-color:lavender;">Shipper</div>
-      <div class="col" style="background-color:orange;">Carrier</div>
-      <div class="col" style="background-color:lavender;">Total Users</div>
+      <div class="col">
+        <a href="Shippers.php" type="submit" class="btn btn-primary" >Shippers</a> 
+      </div>
+      <div class="col" >
+         <a href="Shippers.php" type="submit" class="btn btn-secondary">Carriers</a>
+      </div>
+      <div class="col" >
+        <a href="Shippers.php" type="submit" class="btn btn-secondary">Total Users</a>
+      </div>
     </div>
   </div>
 </body>
