@@ -27,7 +27,7 @@ require('session.php');
     <li class="nav-item">
       <a class="nav-link" href="shippers.php">Shipper</a>
     </li>
-    <li class="nav-item  active">
+    <li class="nav-item active">
       <a class="nav-link" href="carriers.php">Transport</a>
     </li>
     <li class="nav-item">
