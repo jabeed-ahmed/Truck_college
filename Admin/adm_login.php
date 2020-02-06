@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="submit" class="btn btn-success btn-block" id="Hide" value="Get In"><br>
               <div class="row">
                 <div class="col-6" style="text-align:left;">
-                  <a href="index.php"> <code>
+                  <a href="../index.php"> <code>
                     </code>Back to Home</a> </div>
                 <div class="col-6" style="text-align:right;">
                   <a href="#">Forgot Password??</a>

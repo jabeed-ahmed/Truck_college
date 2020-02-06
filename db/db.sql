@@ -2,10 +2,10 @@
 -- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 05, 2020 at 02:14 PM
+-- Host: localhost
+-- Generation Time: Feb 06, 2020 at 04:36 AM
 -- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.33
+-- PHP Version: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,12 +59,12 @@ CREATE TABLE `ad` (
   `AD_id` int(10) NOT NULL,
   `S_id` int(10) NOT NULL,
   `Source_ad` varchar(50) NOT NULL,
-  `no_destination` varchar(200) NOT NULL,
+  `destination` varchar(200) NOT NULL,
   `luggage` varchar(50) NOT NULL,
   `type_luggage` varchar(50) NOT NULL,
   `weight` decimal(20,0) NOT NULL,
-  `price_budget` int(10) NOT NULL,
-  `status_ad` tinyint(1) NOT NULL DEFAULT 0,
+  `price` int(10) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
   `order_date` date NOT NULL,
   `vehicle_type` varchar(200) NOT NULL,
   `add_requirement` varchar(200) NOT NULL,
@@ -72,40 +72,11 @@ CREATE TABLE `ad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Triggers `ad`
+-- Dumping data for table `ad`
 --
-DELIMITER $$
-CREATE TRIGGER `after_update_ad` AFTER UPDATE ON `ad` FOR EACH ROW BEGIN
-    
- INSERT INTO trigger_ad SET AD_id = NEW.AD_id,
-			S_id= NEW.S_id,
-			Source= NEW.source_ad,
-			no_destination= NEW.no_destination,
-			luggage= NEW.luggage,
-			type_luggage= NEW.type_luggage,
-			weight= NEW.weight,
-			
-			STATUS= NEW.status_ad,
-			DATE= NEW.ad_date,
-			order_date= NEW.order_date,
-			vehicle_type= NEW.vehicle_type,
-			add_requirement= NEW.add_requirement,
-			update_date=NOW();
-			
 
-    END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `bid` AFTER INSERT ON `ad` FOR EACH ROW BEGIN
-     INSERT INTO bid (Ad_id)
-    SELECT max(AD_id)
-            FROM ad;
-            
-
-    END
-$$
-DELIMITER ;
+INSERT INTO `ad` (`AD_id`, `S_id`, `Source_ad`, `destination`, `luggage`, `type_luggage`, `weight`, `price`, `status`, `order_date`, `vehicle_type`, `add_requirement`, `ad_date`) VALUES
+(16, 7, 'test', 'test', 'test', 'test', '2', 0, 1, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29');
 
 -- --------------------------------------------------------
 
@@ -150,6 +121,13 @@ CREATE TABLE `bid` (
   `Ad_id` int(11) NOT NULL,
   `B_status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bid`
+--
+
+INSERT INTO `bid` (`B_id`, `Ad_id`, `B_status`) VALUES
+(39, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -312,7 +290,8 @@ INSERT INTO `user_s` (`S_id`, `S_fname`, `S_lname`, `S_mail`, `S_mnumber`, `S_ad
 (1, 'Parmar', 'Viral', 'parmarviral93@gmail.com', 1, 'Talaja, Bhavanagar', 'd163e820', '', '', 2, 0),
 (2, 'Akshat', 'Soni', 'akshatsoni64@gmial.com', 5, 'Ahemedabad', '12345', 'What is your favourite food?', 'Vadapav', 2, 0),
 (3, 'viral', 'Parmar', 'ply4game@gmail.com', 2147483647, 'talaja ', '7eb1b2dc', 'What is your first Mobile modal?', 'J7', 2, 0),
-(5, 'shipper', 'shipper', 'shipper@test.com', 8746876482, 'test', '74a318d5', 'What is your favourite food?', 'ildi', 2, 0);
+(5, 'shipper', 'shipper', 'shipper@test.com', 8746876482, 'test', '74a318d5', 'What is your favourite food?', 'ildi', 2, 0),
+(7, 'Jabeed', 'Ahmed', 'test@test.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -364,7 +343,7 @@ ALTER TABLE `account_info`
 --
 ALTER TABLE `ad`
   ADD PRIMARY KEY (`AD_id`),
-  ADD UNIQUE KEY `AD_id` (`AD_id`),
+  ADD UNIQUE KEY `adid` (`AD_id`) USING BTREE,
   ADD KEY `S_id` (`S_id`);
 
 --
@@ -464,7 +443,7 @@ ALTER TABLE `account_info`
 -- AUTO_INCREMENT for table `ad`
 --
 ALTER TABLE `ad`
-  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -476,7 +455,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bid`
 --
 ALTER TABLE `bid`
-  MODIFY `B_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `B_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `bid_ref`
@@ -518,7 +497,7 @@ ALTER TABLE `status_payment`
 -- AUTO_INCREMENT for table `user_s`
 --
 ALTER TABLE `user_s`
-  MODIFY `S_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `S_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_t`
@@ -583,20 +562,6 @@ ALTER TABLE `status_payment`
   ADD CONSTRAINT `status_payment_ibfk_3` FOREIGN KEY (`S_id`) REFERENCES `user_s` (`S_id`),
   ADD CONSTRAINT `status_payment_ibfk_4` FOREIGN KEY (`T_id`) REFERENCES `user_t` (`T_id`),
   ADD CONSTRAINT `status_payment_ibfk_5` FOREIGN KEY (`Ac_id`) REFERENCES `account_info` (`Ac_id`);
-
-DELIMITER $$
---
--- Events
---
-CREATE DEFINER=`root`@`localhost` EVENT `date_check` ON SCHEDULE EVERY 1 MINUTE STARTS '2019-04-05 22:05:52' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-	   UPDATE ad SET status_Ad='1' WHERE order_date=CURDATE();
-	END$$
-
-CREATE DEFINER=`root`@`localhost` EVENT `date` ON SCHEDULE EVERY 1 MINUTE STARTS '2019-04-05 22:59:01' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-	    UPDATE ad SET status_Ad='1' WHERE order_date=CURDATE();
-	END$$
-
-DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

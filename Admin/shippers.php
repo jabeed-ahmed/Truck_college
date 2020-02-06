@@ -61,7 +61,7 @@ require('nav.php');
                         echo "<tbody>";
                         while($row = mysqli_fetch_array($result)){
                             $status = $row['S_status'];
-                            if($status == 0) {
+                            if($status == 1) {
                                 $status = 'active';
                             } else {
                                 $status = 'inactive';

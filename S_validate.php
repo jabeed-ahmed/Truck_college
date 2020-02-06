@@ -23,21 +23,23 @@ if ($result['success'] == 1) //check if result is sucess or not??
 		$Shipper_fname = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_fname']));
 		$Shipper_lname = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_lname']));
 		$Shipper_mail = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_mail']));
+		$Shipper_password = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_password']));
 		$Shipper_number = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_number']));
 		$Shipper_address = mysqli_real_escape_string($con, htmlspecialchars($_POST['SHIPPER_address']));
 		$sec_type = mysqli_real_escape_string($con, htmlspecialchars($_POST['secq']));
 		$sec_ans = mysqli_real_escape_string($con, htmlspecialchars($_POST['secans']));
 		$Shipper_mail = strtolower($Shipper_mail);
 		$num = md5(rand(5, 10));
-		$finalpass = substr($num, -8);
+		$finalpasss = substr($num, -8);
 
-		$query = $query = "insert into user_s(S_fname,S_lname,S_mail,S_mnumber,S_address,S_password,S_security_question,S_security_answer,S_status,S_active) VALUES('$Shipper_fname','$Shipper_lname','$Shipper_mail','$Shipper_number','$Shipper_address','$finalpass','$sec_type','$sec_ans','0','0')";
+		$query = $query = "insert into user_s(S_fname,S_lname,S_mail,S_mnumber,S_address,S_password,S_security_question,S_security_answer,S_status,S_active) 
+		VALUES('$Shipper_fname','$Shipper_lname','$Shipper_mail','$Shipper_number','$Shipper_address','$Shipper_password','$sec_type','$sec_ans','2','0')";
 		$sql = mysqli_query($con, $query) or die(mysqli_error($query));
 		if ($sql) {
 			//echo "date inserted";
 			$eename = $Shipper_fname;
 			$eemail = $Shipper_mail;
-			$password = $finalpass;
+			$password = $Shipper_password;
 			$num = $Shipper_number;
 			header("refresh:3;url=login.php");
 		} else {
