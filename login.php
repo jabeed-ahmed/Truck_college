@@ -9,9 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   //CHECK FOR SHIPPER
   $input_shipper = trim($_POST["radioF"]);
-
   if($input_shipper == 'Shipper') {
-    $query = "SELECT S_mail,S_password FROM user_s WHERE S_mail='$input_name' and S_password='$input_password'";
+    $query = "SELECT S_id, S_mail,S_password FROM user_s WHERE S_mail='$input_name' and S_password='$input_password'";
     $sql = mysqli_query($con, $query) or die(mysqli_error($query));
     $count = mysqli_num_rows($sql);
     if ($count == 0) {
@@ -21,6 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       session_start();
       $_SESSION['mail'] = $input_name;
       $_SESSION['user_type'] = 'Shipper';
+
+      while($row=mysqli_fetch_array($sql))
+      {
+          echo $row['S_id'];
+          $_SESSION['user_id'] = $row['S_id'];
+      }
       header('location:index.php');
     }
   } else {
@@ -34,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       session_start();
       $_SESSION['mail'] = $input_name;
       $_SESSION['user_type'] = 'Admin';
+     
       header('location:home.php');
     }
   }
