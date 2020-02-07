@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-sm bg-primary sticky-top">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="index.php">Back</a>
+          <a class="nav-link text-white" href="index.php">Home</a>
         </li>
       </ul>
     </nav><br><br>
@@ -48,7 +48,7 @@
                       <div class="card-body">
                         <h4 class="card-title">'.$row['Source_ad'] .'</h4>
                         <p class="card-text">'.$row['destination'] .'</p>
-                        <a href="#" class="btn btn-primary">See Details</a>
+                        <a href="Ad_view.php?id=' .$row['AD_id'] .'" class="btn btn-primary">See Details</a>
                       </div>
                     </div>
                     </div>';

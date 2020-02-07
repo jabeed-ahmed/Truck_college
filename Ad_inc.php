@@ -9,14 +9,18 @@ require("Session.php");
   $luggage=mysqli_real_escape_string($con, htmlspecialchars($_POST['luggage']));
   $type=mysqli_real_escape_string($con, htmlspecialchars($_POST['type_luggage']));
   $weight=mysqli_real_escape_string($con, htmlspecialchars($_POST['waight']));
-  //$budget=mysqli_real_escape_string($con, htmlspecialchars($_POST['budget']));
+  $price=mysqli_real_escape_string($con, htmlspecialchars($_POST['price']));
   $order_date=mysqli_real_escape_string($con, htmlspecialchars($_POST['order_date']));
   $wheel=mysqli_real_escape_string($con, htmlspecialchars($_POST['wheel']));
   $sub=mysqli_real_escape_string($con, htmlspecialchars($_POST['sub_type']));
   $extra=mysqli_real_escape_string($con, htmlspecialchars($_POST['extra_req']));
   $DATE=mysqli_real_escape_string($con, htmlspecialchars(date("Y-m-d")));
 
-$query="INSERT INTO `ad`(`AD_id`, `S_id`, `Source_ad`, `no_destination`, `luggage`, `type_luggage`, `weight`, `status_ad`, `ad_date`,`order_date`, `vehicle_type`, `add_requirement`) VALUES (Null,(SELECT S_id FROM `user_s` WHERE S_mail='$username'),'$source','$dest','$luggage','$type','$weight','0','$DATE','$order_date','$wheel','$extra')";
+$query="INSERT INTO `ad`(`AD_id`, `S_id`, `Source_ad`, `destination`, 
+`luggage`, `type_luggage`, `weight`, `status`, 
+`ad_date`,`order_date`, `vehicle_type`, `add_requirement`, `price`) 
+VALUES (Null,(SELECT S_id FROM `user_s` WHERE S_mail='$username'),
+'$source','$dest','$luggage','$type','$weight','1','$DATE','$order_date','$wheel','$extra', '$price')";
 
  /*$username= $_SESSION['mail'];
   $source=$_POST['source'];

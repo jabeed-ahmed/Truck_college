@@ -22,21 +22,28 @@
   <nav class="navbar navbar-expand-sm bg-primary sticky-top">
     <ul class="navbar-nav">
       <li class="nav-item active">
+        <a class="nav-link text-white" href="index.php">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="ad_list.php">List Of Ads</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link text-white" href="index.php">Back</a>
       </li>
     </ul>
   </nav><br><br>
-  <?php
-  require('Session.php');
-  $ss = $_SESSION['mail'];
-  $query = "SELECT * FROM `ad` WHERE status='1'AND  S_id=(SELECT S_id from user_s  where S_mail='$ss')";
-  $sql = mysqli_query($con, $query) or die(mysqli_error($con));
-  $res = mysqli_num_rows($sql);
-  //  print_r($res);exit;
-  //echo mysqli_num_rows($sql);
-  if ($res > 0) {
-    while ($re = mysqli_fetch_array($sql)) {
-  ?>
+    <?php
+      require('Session.php');
+      $ss = $_SESSION['mail'];
+      $paramId = htmlspecialchars($_GET["id"]);
+      $query = "SELECT * FROM `ad` WHERE status='1'AND  AD_id ='$paramId'";
+      $sql = mysqli_query($con, $query) or die(mysqli_error($con));
+      $res = mysqli_num_rows($sql);
+      //  print_r($res);exit;
+      //echo mysqli_num_rows($sql);
+      if ($res > 0) {
+        while ($re = mysqli_fetch_array($sql)) {
+    ?>
       <form action="Edit_ad.php" method="post">
         <div class="container card box">
           <div class="row well well-lg">
