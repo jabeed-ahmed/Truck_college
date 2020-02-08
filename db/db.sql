@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 06, 2020 at 04:36 AM
+-- Generation Time: Feb 08, 2020 at 05:17 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.32
 
@@ -76,7 +76,9 @@ CREATE TABLE `ad` (
 --
 
 INSERT INTO `ad` (`AD_id`, `S_id`, `Source_ad`, `destination`, `luggage`, `type_luggage`, `weight`, `price`, `status`, `order_date`, `vehicle_type`, `add_requirement`, `ad_date`) VALUES
-(16, 7, 'test', 'test', 'test', 'test', '2', 0, 1, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29');
+(16, 7, 'test', 'test', 'test', 'test', '2', 0, 1, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29'),
+(17, 7, 'test', 'test', 'test', 'test', '2', 1000, 1, '2020-02-06', '4-Wheel', 'erwr', '2020-02-07'),
+(18, 7, 'Items', 'Mangalore', 'Soft', 'Glass', '24', 0, 1, '2333-03-12', '4-Wheel,Open', 't', '2020-02-07');
 
 -- --------------------------------------------------------
 
@@ -119,15 +121,37 @@ CREATE TABLE `ad_ref` (
 CREATE TABLE `bid` (
   `B_id` int(10) NOT NULL,
   `Ad_id` int(11) NOT NULL,
-  `B_status` tinyint(1) NOT NULL DEFAULT 0
+  `B_status` tinyint(1) NOT NULL DEFAULT 0,
+  `bid_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bid`
 --
 
-INSERT INTO `bid` (`B_id`, `Ad_id`, `B_status`) VALUES
-(39, 16, 0);
+INSERT INTO `bid` (`B_id`, `Ad_id`, `B_status`, `bid_price`) VALUES
+(39, 16, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bid_items`
+--
+
+CREATE TABLE `bid_items` (
+  `bidId` int(11) NOT NULL,
+  `adId` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `bid_price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bid_items`
+--
+
+INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`) VALUES
+(5, 16, 0, 18, 12);
 
 -- --------------------------------------------------------
 
@@ -290,8 +314,7 @@ INSERT INTO `user_s` (`S_id`, `S_fname`, `S_lname`, `S_mail`, `S_mnumber`, `S_ad
 (1, 'Parmar', 'Viral', 'parmarviral93@gmail.com', 1, 'Talaja, Bhavanagar', 'd163e820', '', '', 2, 0),
 (2, 'Akshat', 'Soni', 'akshatsoni64@gmial.com', 5, 'Ahemedabad', '12345', 'What is your favourite food?', 'Vadapav', 2, 0),
 (3, 'viral', 'Parmar', 'ply4game@gmail.com', 2147483647, 'talaja ', '7eb1b2dc', 'What is your first Mobile modal?', 'J7', 2, 0),
-(5, 'shipper', 'shipper', 'shipper@test.com', 8746876482, 'test', '74a318d5', 'What is your favourite food?', 'ildi', 2, 0),
-(7, 'Jabeed', 'Ahmed', 'test@test.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 1, 0);
+(7, 'Jabeed', 'Ahmed', 'shipper@test.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -324,7 +347,7 @@ CREATE TABLE `user_t` (
 INSERT INTO `user_t` (`T_id`, `T_org_name`, `T_owner_name`, `T_mail`, `T_address`, `Type_of_vehicle`, `T_number`, `T_anumber`, `T_no_vehicle`, `T_service`, `T_password`, `T_security_question`, `T_security_answer`, `T_status`, `T_active`) VALUES
 (16, 'LogImp', 'Prince Shah', 'sp@gmail.com', 'Bhuj', 'Open Truck', 2, 40212101, 1201245, 'Bhavanagar', '74a318d5', '', '', 2, 0),
 (17, 'sakti trucks', 'dinesh makwana', 'Sp26n12@gmail.com', 'dhorka', '6-wheel,8-wheel', 7096942284, 799042, 12, 'mumbai,ahmedabad,surat', '12345678', '', '', 2, 0),
-(18, 'Carrier', 'Carrier', 'carrier@test.com', 'test', 'Truck', 8736273278, 8736273278, 4, 'test', '58524e3a', 'What is your favourite food?', 'ildi', 2, 0);
+(18, 'Carrier', 'Carrier', 'carrier@test.com', 'test', 'Truck', 8736273278, 8736273278, 4, 'test', '1234', 'What is your favourite food?', 'ildi', 2, 0);
 
 --
 -- Indexes for dumped tables
@@ -364,6 +387,12 @@ ALTER TABLE `ad_ref`
 ALTER TABLE `bid`
   ADD PRIMARY KEY (`B_id`),
   ADD KEY `bid_ibfk_1` (`Ad_id`);
+
+--
+-- Indexes for table `bid_items`
+--
+ALTER TABLE `bid_items`
+  ADD PRIMARY KEY (`bidId`);
 
 --
 -- Indexes for table `bid_ref`
@@ -443,7 +472,7 @@ ALTER TABLE `account_info`
 -- AUTO_INCREMENT for table `ad`
 --
 ALTER TABLE `ad`
-  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -456,6 +485,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `bid`
   MODIFY `B_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `bid_items`
+--
+ALTER TABLE `bid_items`
+  MODIFY `bidId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `bid_ref`

@@ -36,15 +36,15 @@
       <div class="row">
         <div class="col-md-12">
           <div class="page-header clearfix">
-            <h2 class="pull-left">My Bidded Ads</h2>
-            <br/>
+            <h2 class="pull-left">Show Bids</h2>
+            <br />
           </div>
           <?php
           require('Session.php');
 
           require_once "connection.php";
           $paramId = htmlspecialchars($_GET["id"]);
-          $query = "SELECT ad.Source_ad as sourc_ad, bid.bid_price, ad.price, ad.destination FROM `bid_items` bid 
+          $query = "SELECT ad.Source_ad as sourc_ad, bid.bid_price, ad.price, bid.status, ad.destination FROM `bid_items` bid 
           Inner JOIN ad 
           on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
 
@@ -61,6 +61,7 @@
                 <td>Destination</td>
                 <td>Bid Price</td>
                 <td>Actual Price</td>
+                <td>Status</td>
                 <td>Action</td>
               </tr>
               <?php
@@ -72,10 +73,21 @@
                   <td><?php echo $row["destination"]; ?></td>
                   <td><?php echo $row["bid_price"]; ?></td>
                   <td><?php echo $row["price"]; ?></td>
+                  <td><?php
+                      if ($row["status"] == '0') : ?>
+                      <span class="badge badge-danger"> Not Yet Confirmed</span>
+                    <? else : ?>
+                      <span class="badge badge-danger"> Confirmed</span>
+                    <? endif; ?>
+                  </td>
                   <td>
-                    <a href="update.php?id=<?php echo $row["id"]; ?>" 
-                    title='Update Record'><span class='btn btn-info'>Confirm</span>
-                  </a>
+                    <?php
+                    if ($row["status"] == '0') : ?>
+                      <a href="update.php?id=<?php echo $row["id"]; ?>" title='Update Record'><span class='btn btn-info'>Confirm</span>
+                      <? else : ?>
+                        <span class="badge badge-danger"> Confirmed</span>
+                      <? endif; ?>
+                      </a>
                   </td>
                 </tr>
               <?php

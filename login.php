@@ -124,9 +124,7 @@ if (isset($_SESSION['mail'])) {
               <label for="lpass">Password</label>
               <input type="password" name="User_pass" class="form-control" placeholder="Password" autocomplete="off" title="8 Characters Minimum one Uppercase one Lower case preffered" maxlength="30" required>
             </div>
-            <div align="center">
-              <div class="g-recaptcha" data-sitekey="6LfX7nQUAAAAACZdSxmsMfk765RdBf65BEh9kHx9"></div>
-            </div> <br>
+           
             <div>
               <input type="submit" class="btn btn-success btn-block" id="Hide" value="Get In"><br>
               <div class="row">

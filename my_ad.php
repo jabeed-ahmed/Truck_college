@@ -62,7 +62,7 @@ require('Nav.php');
 
                     $status = $row['bidStatus'];
                     if ($status == '0') {
-                        echo '<div class="col-sm-4">
+                        echo '<div class="col-sm-4" style="margin:5px;">
                         <div class="card">
                             <div class="card-body text-center">
                             '.$row['Source_ad'] .' <br/>
@@ -72,6 +72,7 @@ require('Nav.php');
                             <span class="label label-warning">Not Yet Confirmed</span>
                             </div>
                         </div>
+                        <br />
                     </div>';
                     } else {
                         echo '<div class="col-sm">
