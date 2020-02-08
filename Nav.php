@@ -59,6 +59,14 @@
                     }
                 } ?>
                 <?php if (@isset($_SESSION['mail'])) {
+                if ($_SESSION['user_type'] == "Carrier") {
+                ?>
+                    <li class="nav-item"><a class="nav-link" href='ad_list.php?id=<?php echo $_SESSION['user_id']; ?>'>List Of Ads</a></li>
+                <?php
+                    }
+                }
+                ?>
+                <?php if (@isset($_SESSION['mail'])) {
                     if ($_SESSION['user_type'] == "Shipper") {
                 ?>
                

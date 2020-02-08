@@ -8,7 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $input_password = trim($_POST["User_pass"]);
 
   //CHECK FOR SHIPPER
-  $input_shipper = trim($_POST["radioF"]);
+  $input_shipper = trim($_POST["radioF"]);  
+
   if($input_shipper == 'Shipper') {
     $query = "SELECT S_id, S_mail,S_password FROM user_s WHERE S_mail='$input_name' and S_password='$input_password'";
     $sql = mysqli_query($con, $query) or die(mysqli_error($query));
@@ -25,6 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       {
           echo $row['S_id'];
           $_SESSION['user_id'] = $row['S_id'];
+      }
+      header('location:index.php');
+    }
+  } else if($input_shipper == 'Carrier') {
+    $query = "SELECT T_id, T_mail,T_password FROM user_t WHERE T_mail='$input_name' and T_password='$input_password'";
+    $sql = mysqli_query($con, $query) or die(mysqli_error($query));
+    $count = mysqli_num_rows($sql);
+    if ($count == 0) {
+      echo "<div class='container'> <div class='alert alert-danger' role='alert' style='text-align:center; margin-top:25%;padding-top:2%;padding-bottom:2%' ></h4> <strong>Ohh Snap!!!</strong> Wrong Credential Please check Email & pasword Which you have been Used!! & contact admin if you have been Blocked!!</h4></div> </div>";
+      header("refresh:4;url=login.php");
+    } else {
+      session_start();
+      $_SESSION['mail'] = $input_name;
+      $_SESSION['user_type'] = 'Carrier';
+
+      while($row=mysqli_fetch_array($sql))
+      {
+          echo $row['T_id'];
+          $_SESSION['user_id'] = $row['T_id'];
       }
       header('location:index.php');
     }
@@ -92,7 +112,7 @@ if (isset($_SESSION['mail'])) {
                   <input type="radio" name="radioF" value="Shipper"><strong>&nbsp;I am a Shipper</strong>
                 </label>&nbsp;&nbsp;&nbsp;
                 <label>
-                  <input type="radio" name="radioF" value="Transport"><strong>&nbsp;I am a Carrier</strong>
+                  <input type="radio" name="radioF" value="Carrier"><strong>&nbsp;I am a Carrier</strong>
                 </label>
               </div><br>
             </div>

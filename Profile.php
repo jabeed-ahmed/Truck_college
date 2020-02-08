@@ -317,7 +317,7 @@ require_once("Session.php");
 
     <!---========================================    Saprate LOC   ================================================================ -->
   <?php  } //end of shipper condition
-  if ($_SESSION['user_type'] == "Transport") { //transport condition started
+  if ($_SESSION['user_type'] == "Carrier") { //transport condition started
   ?>
     <!--================Banner Area =================-->
     <section class="banner_area">
@@ -354,7 +354,7 @@ require_once("Session.php");
                     </div>
                     <div class="row">
                       <div class="col"><br><br>
-                        <a href="ad.php" class="btn btn-success btn-block"><span class="fa fa-eye"></span> View Ad </a>
+                        <a href="my_ad.php" class="btn btn-success btn-block"><span class="fa fa-eye"></span> View Ad </a>
                       </div>
                       <div class="col"><br><br>
                         <button class="btn btn-info btn-block" data-toggle="modal" data-target="#Edit_prof"><span class="fa fa-user"></span> Edit Your Profile </button>

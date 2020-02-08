@@ -50,6 +50,10 @@ if (isset($_SESSION['mail'])) {
             <input type="email" name="CARRIER_mail" class="form-control" placeholder="Enter your Email ID" maxlength="50" required>
           </div>
           <div class="form-group">
+            <label for="lemail">Password *</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter your password" maxlength="50" required>
+          </div>
+          <div class="form-group">
             <label for="mnum">Contact Number *</label>
             <input type="tel" pattern=".{10}" name="CARRIER_number" pattern=".{10}" class="form-control" minlength="10" placeholder="Enter your Contact Number" required>
           </div>

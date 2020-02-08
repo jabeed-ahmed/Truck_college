@@ -38,7 +38,13 @@
         <div class="row">
           <?php
           // Attempt select query execution
-          $sql = "SELECT * FROM ad WHERE status='1'";
+          $paramId = htmlspecialchars($_GET["id"]);
+          $userId = $_SESSION['user_id'];
+          if ($_SESSION['user_type'] == "Carrier") {
+            $sql = "SELECT * FROM `ad` WHERE status='1'";
+          } else {
+            $sql = "SELECT * FROM `ad` WHERE status='1'AND  S_id ='$userId'";
+          }
           if($result = mysqli_query($con, $sql)){
               if(mysqli_num_rows($result) > 0){
                   while($row = mysqli_fetch_array($result)){
@@ -55,7 +61,7 @@
               }
               mysqli_free_result($result);
               } else{
-                  echo "<p class='lead'><em>No records were found.</em></p>";
+                  echo "<p class='lead' style='margin-left:20px;'><em>No records were found.</em></p>";
               }
           } else{
               echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);

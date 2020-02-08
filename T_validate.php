@@ -31,6 +31,7 @@ if ($result['success'] == 1) //check if result is sucess or not??
     $service = mysqli_real_escape_string($con, htmlspecialchars($_POST['CARRIER_service']));
     $sec_type = mysqli_real_escape_string($con, htmlspecialchars($_POST['secq']));
     $sec_ans = mysqli_real_escape_string($con, htmlspecialchars($_POST['secans']));
+    $password = mysqli_real_escape_string($con, htmlspecialchars($_POST['password']));
     $carrier_mail = strtolower($carrier_mail);
 
     //password creation code....
@@ -41,7 +42,7 @@ if ($result['success'] == 1) //check if result is sucess or not??
     T_number, T_anumber, Type_of_vehicle, T_no_vehicle, T_service,T_password,T_security_question,T_security_answer,T_status,T_active)
     		VALUES (null,'$company_name','$owner_name','$carrier_mail','$address',
         '$carrier_number','$carrier_alt_number',
-        '$vehicle_type','$no_vehicle','$service','$finalpass','$sec_type','$sec_ans','0','0')";
+        '$vehicle_type','$no_vehicle','$service','$password','$sec_type','$sec_ans','1','0')";
 
     $sql = mysqli_query($con, $query) or die(mysqli_error($con));
     if ($sql) {
