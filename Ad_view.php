@@ -93,7 +93,7 @@ require('Session.php');
         <br />
         <br />
         <div class="col">
-          <form class="form-group" action="new_bid.php" method="post">
+          <form class="form-group" action="new_bid.php?id=<?php echo $paramId; ?>" method="post">
             <input type="hidden" name="id_Ad" value="<?php echo $re[0]; ?>">
             <button type="button" class="form-group btn btn-success btn-block" data-toggle="modal" data-target="#confirmModal">Want to Bid?</button>
           </form>
@@ -105,7 +105,7 @@ require('Session.php');
         </div>
 
         <div class="col">
-          <form class="form-group" action="new_bid.php" method="post">
+          <form class="form-group" action="new_bid.php?id=<?php echo $paramId; ?>" method="post">
             <input type="hidden" name="id_Ad" value="<?php echo $re[0]; ?>">
             <input type="submit" class="form-group btn btn-success btn-block" name="view_bid" value="Show Bid" />
           </form>

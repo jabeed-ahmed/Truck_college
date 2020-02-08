@@ -22,7 +22,7 @@
   AND S_id=(select S_id from user_s where S_mail='$username')";
   $result = mysqli_query($con, $query) or die(mysqli_error($con));
   if ($result) {
-    header("refresh:1;url=Ad_view.php?=Ad_Edited_Successfully");
+    header("refresh:1;url=Ad_view.php?id=".$ad);
     //header(home.php);
   }
 ?>

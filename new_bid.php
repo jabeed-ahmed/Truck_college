@@ -1,105 +1,97 @@
-<?php
-require('Session.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NEW BID</title>
-  <link rel="icon" type="image/ico" href="https://i.ibb.co/GQ6gw34/1544624867669.png" />
-  <style media="screen">
-    body {
-      height: 100%;
-      width: 100%;
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Truck</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .bs-example {
+      margin: 20px;
     }
   </style>
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
-  <link rel="stylesheet" type="text/css" href="css/logreg.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm bg-primary sticky-top navbar-dark">
+  <nav class="navbar navbar-expand-sm bg-primary sticky-top">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="Ad_view.php">Back</a>
+        <a class="nav-link text-white" href="index.php">Home</a>
       </li>
     </ul>
-  </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8 col-sm-6 col-xs-10 center_div" style="margin-top:5%;">
-        <form class="form-container1" action="credit_detail.php" method="post">
-          <h2 align="center">Bid Confirmation</h2>
-          <hr><br>
-          <div class="row container">
-            <div class="col">
-              <label for="source"><b>Transport Name</b></label>
-            </div>
-            <div class="col">
-              <label for="source"><b>Price</b></label>
-            </div>
-            <div class="col">
-              <label for="source"><b>Date</b></label>
-            </div>
-            <div class="col">
-              <label for="source"><b>Confirmation</b></label>
-            </div>
-            <?php
-            $adi = $_POST['id_Ad'];
-            //echo $adi;exit;
+  </nav><br><br>
 
-            $query = "SELECT * FROM bid_ref where B_id=(SELECT b_id from bid where ad_id='$adi') ORDER by price ASC";
-            $result = mysqli_query($con, $query) or die(mysqli_error($con));
-            if (mysqli_num_rows($result) > 0) {
-              while ($row = mysqli_fetch_array($result)) {
-                $b_id = $row['B_id'];
-                $t_id = $row['T_id'];
-                $t_org_name = $row['T-org_name'];
-                $price = $row['price'];
-                $date = $row['date'];
-            ?>
-                <div class="row container" style="padding-bottom:1%;">
-                  <div class="col">
-                    <?php echo $t_id; ?>
-                  </div>
-                  <div class="col">
-                    <?php echo $t_org_name; ?>
-                  </div>
-                  <div class="col">
-                    <?php echo $price; ?>
-                  </div>
-                  <div class="col">
-                    <?php echo $date; ?>
-                  </div>
-                  <input type="hidden" name="AD" value="<?php echo $adi; ?>" />
-                  <input type="submit" class="btn btn-success btn-sm" value="Confirm Bid">
-                  <input type="hidden" name="id_ad" value="<?php echo $Ad_id; ?>">
-                  <!--button type="button" onclick="alert('Bid Confirmed !!')">Confirm</button-->
-                </div>
-            <?php
-              }
-            }
-            ?>
-
+  <div class="bs-example">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-header clearfix">
+            <h2 class="pull-left">My Bidded Ads</h2>
+            <br/>
           </div>
-        </form>
+          <?php
+          require('Session.php');
+
+          require_once "connection.php";
+          $paramId = htmlspecialchars($_GET["id"]);
+          $query = "SELECT ad.Source_ad as sourc_ad, bid.bid_price, ad.price, ad.destination FROM `bid_items` bid 
+          Inner JOIN ad 
+          on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
+
+          $result = mysqli_query($con, $query);
+          ?>
+
+          <?php
+          if (mysqli_num_rows($result) > 0) {
+          ?>
+            <table class='table table-bordered table-striped'>
+
+              <tr>
+                <td>Source</td>
+                <td>Destination</td>
+                <td>Bid Price</td>
+                <td>Actual Price</td>
+                <td>Action</td>
+              </tr>
+              <?php
+              $i = 0;
+              while ($row = mysqli_fetch_array($result)) {
+              ?>
+                <tr>
+                  <td><?php echo $row["sourc_ad"]; ?></td>
+                  <td><?php echo $row["destination"]; ?></td>
+                  <td><?php echo $row["bid_price"]; ?></td>
+                  <td><?php echo $row["price"]; ?></td>
+                  <td>
+                    <a href="update.php?id=<?php echo $row["id"]; ?>" 
+                    title='Update Record'><span class='btn btn-info'>Confirm</span>
+                  </a>
+                  </td>
+                </tr>
+              <?php
+                $i++;
+              }
+              ?>
+            </table>
+          <?php
+          } else {
+            echo "No result found";
+          }
+          ?>
+        </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    document.getElementById("Hide").onclick = function() {
-      this.disabled = true;
-    }
-  </script>
 </body>
 
 </html>
