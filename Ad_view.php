@@ -93,10 +93,16 @@ require('Session.php');
         <br />
         <br />
         <div class="col">
-          <form class="form-group" action="new_bid.php?id=<?php echo $paramId; ?>" method="post">
-            <input type="hidden" name="id_Ad" value="<?php echo $re[0]; ?>">
-            <button type="button" class="form-group btn btn-success btn-block" data-toggle="modal" data-target="#confirmModal">Want to Bid?</button>
-          </form>
+          <?php if ($re[8] == 1) { ?>
+            <form class="form-group" action="new_bid.php?id=<?php echo $paramId; ?>" method="post">
+              <input type="hidden" name="id_Ad" value="<?php echo $re[0]; ?>">
+              <button type="button" class="form-group btn btn-success btn-block" data-toggle="modal" data-target="#confirmModal">Want to Bid?</button>
+            </form>
+          <?php } else { ?>
+              <input type="hidden" name="id_Ad" value="<?php echo $re[0]; ?>">
+              <button type="button" class="form-group btn btn-info btn-block" data-toggle="modal" disabled data-target="#confirmModal">Bid Confirmed</button>
+          <?php } ?>
+
         </div>
       <?php else : ?>
         <button class="btn btn-info btn-block" data-toggle="modal" type="submit" data-target="#myModal" href="Edit_ad.php"><span class="fa fa-plus-circle"></span> Edit Ad </button> </div>

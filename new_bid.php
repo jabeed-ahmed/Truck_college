@@ -44,7 +44,8 @@
 
           require_once "connection.php";
           $paramId = htmlspecialchars($_GET["id"]);
-          $query = "SELECT ad.Source_ad as sourc_ad, bid.bid_price, ad.price, bid.status, ad.destination FROM `bid_items` bid 
+          $query = "SELECT bid.bidId, ad.AD_id as adId, ad.Source_ad as sourc_ad, bid.bid_price, ad.price, 
+          bid.status, ad.destination FROM `bid_items` bid 
           Inner JOIN ad 
           on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
 
@@ -83,9 +84,11 @@
                   <td>
                     <?php
                     if ($row["status"] == '0') : ?>
-                      <a href="update.php?id=<?php echo $row["id"]; ?>" title='Update Record'><span class='btn btn-info'>Confirm</span>
+                      <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> && adId=<?php echo $row["adId"]; ?>" 
+                      title='Update Record'>
+                      <span class='btn btn-info'>Confirm</span>
                       <? else : ?>
-                        <span class="badge badge-danger"> Confirmed</span>
+                        <span class="badge badge-success"> Confirmed</span>
                       <? endif; ?>
                       </a>
                   </td>

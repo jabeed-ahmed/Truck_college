@@ -34,7 +34,7 @@ require('nav.php');
         <a href="Shippers.php" type="submit" class="btn btn-primary" >Shippers</a> 
       </div>
       <div class="col" >
-         <a href="Shippers.php" type="submit" class="btn btn-secondary">Carriers</a>
+         <a href="Carriers.php" type="submit" class="btn btn-secondary">Carriers</a>
       </div>
       <div class="col" >
         <a href="Shippers.php" type="submit" class="btn btn-secondary">Total Users</a>
