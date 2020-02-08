@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 08, 2020 at 05:17 AM
+-- Generation Time: Feb 08, 2020 at 05:16 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.32
 
@@ -76,9 +76,10 @@ CREATE TABLE `ad` (
 --
 
 INSERT INTO `ad` (`AD_id`, `S_id`, `Source_ad`, `destination`, `luggage`, `type_luggage`, `weight`, `price`, `status`, `order_date`, `vehicle_type`, `add_requirement`, `ad_date`) VALUES
-(16, 7, 'test', 'test', 'test', 'test', '2', 0, 1, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29'),
-(17, 7, 'test', 'test', 'test', 'test', '2', 1000, 1, '2020-02-06', '4-Wheel', 'erwr', '2020-02-07'),
-(18, 7, 'Items', 'Mangalore', 'Soft', 'Glass', '24', 0, 1, '2333-03-12', '4-Wheel,Open', 't', '2020-02-07');
+(16, 7, 'Udupi', 'Mangalore', 'Hard', 'Heavy Items', '20', 10000, 0, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29'),
+(17, 7, 'Manipal', 'Kumta', 'Soft', 'House Hold', '2', 1000, 1, '2020-02-06', '4-Wheel', 'erwr', '2020-02-07'),
+(18, 7, 'Items', 'Mangalore', 'Soft', 'Glass', '24', 5000, 1, '2333-03-12', '4-Wheel,Open', 't', '2020-02-07'),
+(19, 7, 'Bangalore', 'Mangalore', 'Hard', 'Furniture', '12', 11998, 1, '2020-02-14', '4-Wheel', 'Rope', '2020-02-08');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`Adm_id`, `Adm_mail`, `password`, `P_status`) VALUES
-(1, 'admin@admin.com', 'ADMIN', 1),
+(1, 'admin', '1234', 1),
 (2, 'police@guj.co.in', 'policeguj', 0);
 
 -- --------------------------------------------------------
@@ -151,7 +152,8 @@ CREATE TABLE `bid_items` (
 --
 
 INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`) VALUES
-(5, 16, 0, 18, 12);
+(5, 16, 0, 18, 12),
+(6, 16, 1, 19, 2000);
 
 -- --------------------------------------------------------
 
@@ -347,7 +349,8 @@ CREATE TABLE `user_t` (
 INSERT INTO `user_t` (`T_id`, `T_org_name`, `T_owner_name`, `T_mail`, `T_address`, `Type_of_vehicle`, `T_number`, `T_anumber`, `T_no_vehicle`, `T_service`, `T_password`, `T_security_question`, `T_security_answer`, `T_status`, `T_active`) VALUES
 (16, 'LogImp', 'Prince Shah', 'sp@gmail.com', 'Bhuj', 'Open Truck', 2, 40212101, 1201245, 'Bhavanagar', '74a318d5', '', '', 2, 0),
 (17, 'sakti trucks', 'dinesh makwana', 'Sp26n12@gmail.com', 'dhorka', '6-wheel,8-wheel', 7096942284, 799042, 12, 'mumbai,ahmedabad,surat', '12345678', '', '', 2, 0),
-(18, 'Carrier', 'Carrier', 'carrier@test.com', 'test', 'Truck', 8736273278, 8736273278, 4, 'test', '1234', 'What is your favourite food?', 'ildi', 2, 0);
+(18, 'Carrier', 'Carrier', 'carrier@test.com', 'test', 'Truck', 8736273278, 8736273278, 4, 'test', '1234', 'What is your favourite food?', 'ildi', 2, 0),
+(19, 'Udupi Carrier', 'Madesha', 'madesha@carrier.com', 'Near Vijaya Bank', 'Truck', 9886746058, 9886746058, 12, 'Loading', '1234', 'What is your favourite food?', 'Idli', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -472,7 +475,7 @@ ALTER TABLE `account_info`
 -- AUTO_INCREMENT for table `ad`
 --
 ALTER TABLE `ad`
-  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -490,7 +493,7 @@ ALTER TABLE `bid`
 -- AUTO_INCREMENT for table `bid_items`
 --
 ALTER TABLE `bid_items`
-  MODIFY `bidId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `bidId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `bid_ref`
@@ -538,7 +541,7 @@ ALTER TABLE `user_s`
 -- AUTO_INCREMENT for table `user_t`
 --
 ALTER TABLE `user_t`
-  MODIFY `T_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `T_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
