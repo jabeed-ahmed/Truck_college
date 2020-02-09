@@ -97,7 +97,7 @@ require('session.php');
                                 echo "<td>" . $row['T_address'] . "</td>";
                                 echo "<td>" . $status . "</td>";
                                 echo "<td>";
-                                    echo "<a href='update.php?id=". $row['T_id'] ."' title='Update'
+                                    echo "<a href='update_carrier.php?id=". $row['T_id'] ."' title='Update'
                                     data-toggle='tooltip'><Button class='btn btn-info'>Update</Button></a>";
                                 echo "</td>";
                             echo "</tr>";

@@ -32,79 +32,99 @@
   </nav><br><br>
 
   <div class="bs-example">
-    <div class="container">
+    <div class="container-fluid" style="width: 1200px;">
       <div class="row">
-        <div class="col-md-12">
-          <div class="page-header clearfix">
-            <h2 class="pull-left">Show Bids</h2>
-            <br />
-          </div>
-          <?php
-          require('Session.php');
-
-          require_once "connection.php";
-          $paramId = htmlspecialchars($_GET["id"]);
-          $query = "SELECT bid.bidId, ad.AD_id as adId, ad.Source_ad as sourc_ad, bid.bid_price, ad.price, 
-          bid.status, ad.destination FROM `bid_items` bid 
-          Inner JOIN ad 
-          on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
-
-          $result = mysqli_query($con, $query);
-          ?>
-
-          <?php
-          if (mysqli_num_rows($result) > 0) {
-          ?>
-            <table class='table table-bordered table-striped'>
-
-              <tr>
-                <td>Source</td>
-                <td>Destination</td>
-                <td>Bid Price</td>
-                <td>Actual Price</td>
-                <td>Status</td>
-                <td>Action</td>
-              </tr>
+          <div class="col-md-12">
+          <br/>
+              <div class="page-header clearfix">
+                  <h2 class="pull-left">Show Bids</h2>
+                  <br/>
+              </div>
               <?php
-              $i = 0;
-              while ($row = mysqli_fetch_array($result)) {
-              ?>
-                <tr>
-                  <td><?php echo $row["sourc_ad"]; ?></td>
-                  <td><?php echo $row["destination"]; ?></td>
-                  <td><?php echo $row["bid_price"]; ?></td>
-                  <td><?php echo $row["price"]; ?></td>
-                  <td><?php
-                      if ($row["status"] == '0') : ?>
-                      <span class="badge badge-danger"> Not Yet Confirmed</span>
-                    <? else : ?>
-                      <span class="badge badge-danger"> Confirmed</span>
-                    <? endif; ?>
-                  </td>
-                  <td>
-                    <?php
-                    if ($row["status"] == '0') : ?>
-                      <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> && adId=<?php echo $row["adId"]; ?>" 
-                      title='Update Record'>
-                      <span class='btn btn-info'>Confirm</span>
-                      <? else : ?>
-                        <span class="badge badge-success"> Confirmed</span>
-                      <? endif; ?>
-                      </a>
-                  </td>
-                </tr>
-              <?php
-                $i++;
+              // Include config file
+              require('Session.php');
+
+              require_once "connection.php";
+              
+              // Attempt select query execution
+              $paramId = htmlspecialchars($_GET["id"]);
+              $query = "SELECT bid.bidId, ad.AD_id as adId, ad.Source_ad as sourc_ad, bid.bid_price, ad.price, 
+              bid.status, ad.destination FROM `bid_items` bid 
+              Inner JOIN ad 
+              on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
+    
+              if($result = mysqli_query($con, $query)){
+                  if(mysqli_num_rows($result) > 0){
+                      echo "<table class='table'>";
+                          echo "<thead>";
+                              echo "<tr>";
+                                  echo "<th scope='col'>Source</th>";
+                                  echo "<th scope='col'>Destination</th>";
+                                  echo "<th scope='col'>Bid Price</th>";
+                                  echo "<th scope='col'>Actual Price</th>";
+                                  echo "<th scope='col'>Status</th>";
+                                  echo "<th scope='col'>Action</th>";
+                              echo "</tr>";
+                          echo "</thead>";
+                          echo "<tbody>";
+                          while($row = mysqli_fetch_array($result)){
+                              $status = $row['status'];
+                              if($status == 1) {
+                                  $status = 'Confirmed';
+                                  $color = 'btn btn-success';
+                              } else {
+                                  $status = 'Deactivate';
+                                  $color = 'btn btn-danger';
+                              }
+                              echo "<tr>";
+                                  echo "<td>" . $row['sourc_ad'] . "</td>";
+                                  echo "<td>" . $row['destination'] . "</td>";
+                                  echo "<td>" . $row['bid_price'] . "</td>";
+                                  echo "<td>" . $row['price'] . "</td>";
+                                  echo "<td>";  
+                                  if($status== 0) {
+                                    ?>
+                                     <span class="badge badge-danger"> Not Yet Confirmed</span>
+                                     <?php
+                                   } else {
+                                    ?>
+                                    <span class="badge badge-success"> Confirmed</span>
+                                    <?php
+                                   };
+                                  echo "</td>";
+
+                                  echo "<td>";  
+                                  if($status== 0) {
+                                    ?>
+                                     <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> 
+                                        && adId=<?php echo $row["adId"]; ?>" 
+                                        title='Update Record'>
+                                        <span class='btn btn-info'>Confirm</span>
+                                     <?php
+                                   } else {
+                                    ?>
+                                    <span class="badge badge-success"> Confirmed</span>
+                                    <?php
+                                   };
+                                  echo "</td>";
+                              echo "</tr>";
+                          }
+                          echo "</tbody>";                            
+                      echo "</table>";
+                      // Free result set
+                      mysqli_free_result($result);
+                  } else{
+                      echo "<p class='lead'><em>No records were found.</em></p>";
+                  }
+              } else{
+                  echo "ERROR: Could not able to execute $query. " . mysqli_error($con);
               }
+
+              // Close connection
+              mysqli_close($con);
               ?>
-            </table>
-          <?php
-          } else {
-            echo "No result found";
-          }
-          ?>
-        </div>
-      </div>
+          </div>
+      </div>  
     </div>
   </div>
 </body>
