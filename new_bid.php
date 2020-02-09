@@ -99,7 +99,7 @@
                                      <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> 
                                         && adId=<?php echo $row["adId"]; ?>" 
                                         title='Update Record'>
-                                        <span class='btn btn-info'>Confirm</span>
+                                        <span class='btn btn-info'>Confirm & Pay</span>
                                      <?php
                                    } else {
                                     ?>

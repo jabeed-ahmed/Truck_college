@@ -8,10 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo $input_price;
 
     $userId =  $_SESSION['user_id'];
+    $adOwnerId =  $_REQUEST['shipperId'];
+    echo $adOwnerId;
     $paramId = htmlspecialchars($_GET["id"]);
 
-    $query = "INSERT INTO bid_items (adId, status, userId, bid_price)
-    VALUES ($paramId, '0', $userId, $input_price)";
+    $query = "INSERT INTO bid_items (adId, status, userId, bid_price, adOwnerId)
+    VALUES ($paramId, '0', $userId, $input_price, $adOwnerId)";
             // $update = "UPDATE `ad`
             // SET product_name='".$product_name."',
             // product_category='".$product_category."'

@@ -46,10 +46,12 @@ require('Session.php');
   $query = "SELECT * FROM `ad` WHERE status='1'AND  AD_id ='$paramId'";
   $sql = mysqli_query($con, $query) or die(mysqli_error($con));
   $res = mysqli_num_rows($sql);
+  $shipperId;
   //  print_r($res);exit;
   //echo mysqli_num_rows($sql);
   if ($res > 0) {
     while ($re = mysqli_fetch_array($sql)) {
+      $shipperId = $re[1];
   ?>
       <div class="container">
         <h1><?php print $re[2] ?></h1><br>
@@ -88,7 +90,6 @@ require('Session.php');
                   <div class="col">
                     <input type="hidden" name="id_ad" value="<?php echo $re[0]; ?>">
       </form>
-
       <?php if ($_SESSION['user_type'] == "Carrier") : ?>
         <br />
         <br />
@@ -177,14 +178,16 @@ require('Session.php');
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Are you Sure?</h4>
+            <h4 class="modal-title">Bid Amount</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
           <!-- Modal body -->
           <div class="modal-body">
             <input name="price" type="number" class="form-control required" required>
-            <input type="text" hidden name="id" class="btn btn-success btn-block" value="<?php echo $paramId ?>" />
+            <input type="text" hidden name="shipperId"  value="<?php echo $shipperId ?>" />
+            <input type="text" hidden name="id" class="btn btn-success btn-block"
+             value="<?php echo $paramId ?>" />
           </div>
           <div class="container">
             <input type="hidden" name="ad_id" value="<?php echo $re[0]; ?>">
@@ -196,7 +199,7 @@ require('Session.php');
                 <?php
                 $url = 'my_ad.php?id=' . $paramId;
                 ?>
-                <input type="submit" id="btn" class="btn btn-success btn-block" value="Yes" />
+                <input type="submit" id="btn" class="btn btn-success btn-block" value="Confirm" />
               </div>
             </div>
             <div class="modal-footer">

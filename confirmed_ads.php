@@ -44,7 +44,7 @@ require('Nav.php');
         <div class="container">
             <div class="banner_inner_text">
                 <center>
-                    <h1> Selected Ads</h1>
+                    <h1> Confirmed Ads </h1>
                 </center>
             </div>
         </div>
@@ -56,15 +56,14 @@ require('Nav.php');
         <?php
 
         $userId = $_SESSION['user_id'];
-        $sql = "SELECT bid.bidId, bid.status as bidStatus, bid.isDelivered, bid.bid_price,
+        $sql = "SELECT bid.status as bidStatus, bid.bid_price,
         a.Source_ad,  a.destination, a.ad_date FROM `bid_items` bid 
-        INNER JOIN ad a ON bid.adId = a.AD_id where bid.userId = $userId";
+        INNER JOIN ad a ON bid.adId = a.AD_id where bid.adOwnerId = $userId";
         if ($res = mysqli_query($con, $sql)) {
             if (mysqli_num_rows($res) > 0) {
                 while ($row = mysqli_fetch_array($res)) {
 
                     $status = $row['bidStatus'];
-                    $deliveryStatus = $row['isDelivered'];
                     if ($status == '0') {
                         echo '<div class="col-sm-4" style="margin:5px;">
                         <div class="card">
@@ -72,44 +71,21 @@ require('Nav.php');
                             '.$row['Source_ad'] .' <br/>
                             '.$row['destination'] .'<br/>
                             '.$row['ad_date'] .'<br/>
-                           
                             <h4> Bid Price : '.$row['bid_price'].'  </h4> 
                             <span class="label label-warning">Not Yet Confirmed</span>
                             </div>
                         </div>
                         <br />
                     </div>';
-                } else if($status = '1' and $deliveryStatus = 'Delivered'){
-                    $url = 'update_delivery.php?id=' . $row['bidId'];
-                    echo '<div class="col-sm-4" style="margin:5px;">
-                    <div class="card">
-                        <div class="card-body text-center">
-                        '.$row['Source_ad'] .' <br/>
-                        '.$row['destination'] .'<br/>
-                        '.$row['ad_date'] .'<br/>
-                        <h4> Bid Price : '.$row['bid_price'].'  </h4>  
-                        <span class="label label-success">Confirmed</span>    
-                        <br/>
-                        <p><strong>Delivery Status: </strong> '.$row['isDelivered'] .'</p>
-                        
-                        </div>
-                    </div>
-                    <br />
-                </div>';
                     } else {
-                        $url = 'update_delivery.php?id=' . $row['bidId'];
                         echo '<div class="col-sm-4" style="margin:5px;">
                         <div class="card">
                             <div class="card-body text-center">
                             '.$row['Source_ad'] .' <br/>
                             '.$row['destination'] .'<br/>
                             '.$row['ad_date'] .'<br/>
-                            <h4> Bid Price : '.$row['bid_price'].'  </h4>  
-                            <span class="label label-success">Confirmed</span>    
-                            <br/>
-                            <p><strong>Delivery Status: </strong> '.$row['isDelivered'] .'</p>
-                            
-                            <a href="update_delivery.php?id=' . $row['bidId'].'" class="btn btn-info">Update the Status</a>
+                            <h4> Bid Price : '.$row['bid_price'].'  </h4>  <br />
+                            <h3><span class="label label-success">Confirmed</span></h3>
                             </div>
                         </div>
                         <br />
@@ -145,23 +121,7 @@ require('Nav.php');
                             <p>Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum.</p>
                         </aside>
                     </div>
-                    <!-- <div class="col-lg-4 col-sm-6">
-                            <aside class="f_widget f_insta_widget">
-                                <div class="f_title">
-                                    <h3>Instagram</h3>
-                                </div>
-                                <ul>
-                                    <li><a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-2.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-3.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-4.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-5.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-6.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-7.jpg" alt=""></a></li>
-                                    <li><a href="#"><img src="img/instagram/ins-8.jpg" alt=""></a></li>
-                                </ul>
-                            </aside>
-                        </div> -->
+                   
                     <div class="col-lg-4 col-sm-6">
                         <aside class="f_widget f_subs_widget">
                             <div class="f_title">

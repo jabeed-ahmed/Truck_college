@@ -71,6 +71,7 @@
                 ?>
                
                 <li class="nav-item"><a class="nav-link" href='ad_list.php?id=<?php echo $_SESSION['user_id']; ?>'>Ads</a></li> 
+                <li class="nav-item"><a class="nav-link" href='confirmed_ads.php?id=<?php echo $_SESSION['user_id']; ?>'>Confirmed Ads</a></li> 
                 <?php 
                 }
                     if ($_SESSION['user_type'] == "Transport") 

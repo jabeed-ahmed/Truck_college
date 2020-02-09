@@ -221,7 +221,10 @@ require_once("Session.php");
             </div>
           </div>
           <!-- ad modal end -->
-          <button class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus-circle"></span><strong> Post Ad </strong> </button>
+          <button class="btn btn-success btn-block" data-toggle="modal" 
+              data-target="#myModal"><span class="fa fa-plus-circle"></span><strong> Post Ad </strong> 
+          </button>
+
         </div>
         <!--/col-->
         <div class="col-xs-12 col-sm-4">
