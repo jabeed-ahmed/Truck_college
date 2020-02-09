@@ -2,10 +2,10 @@
 -- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 08, 2020 at 05:16 PM
+-- Host: 127.0.0.1
+-- Generation Time: Feb 09, 2020 at 02:11 PM
 -- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.32
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -144,16 +144,17 @@ CREATE TABLE `bid_items` (
   `adId` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `bid_price` int(11) NOT NULL
+  `bid_price` int(11) NOT NULL,
+  `adOwnerId` int(11) DEFAULT NULL,
+  `isDelivered` varchar(55) DEFAULT 'Not Delivered'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bid_items`
 --
 
-INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`) VALUES
-(5, 16, 0, 18, 12),
-(6, 16, 1, 19, 2000);
+INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`, `adOwnerId`, `isDelivered`) VALUES
+(7, 16, 1, 18, 50, 7, 'Delivered');
 
 -- --------------------------------------------------------
 
@@ -493,7 +494,7 @@ ALTER TABLE `bid`
 -- AUTO_INCREMENT for table `bid_items`
 --
 ALTER TABLE `bid_items`
-  MODIFY `bidId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `bidId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `bid_ref`
