@@ -56,7 +56,7 @@ require('Nav.php');
         <?php
 
         $userId = $_SESSION['user_id'];
-        $sql = "SELECT bid.status as bidStatus, bid.bid_price,
+        $sql = "SELECT bid.status as bidStatus, bid.isDelivered, bid.bid_price,
         a.Source_ad,  a.destination, a.ad_date FROM `bid_items` bid 
         INNER JOIN ad a ON bid.adId = a.AD_id where bid.adOwnerId = $userId";
         if ($res = mysqli_query($con, $sql)) {
@@ -86,6 +86,8 @@ require('Nav.php');
                             '.$row['ad_date'] .'<br/>
                             <h4> Bid Price : '.$row['bid_price'].'  </h4>  <br />
                             <h3><span class="label label-success">Confirmed</span></h3>
+                            <br/>
+                            <p><strong>Delivery Status: </strong> <span class="label label-success">'.$row['isDelivered'] .'</span></p>
                             </div>
                         </div>
                         <br />
