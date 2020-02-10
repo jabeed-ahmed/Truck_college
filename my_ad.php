@@ -65,51 +65,72 @@ require('Nav.php');
 
                     $status = $row['bidStatus'];
                     $deliveryStatus = $row['isDelivered'];
+
                     if ($status == '0') {
+                       
                         echo '<div class="col-sm-4" style="margin:5px;">
                         <div class="card">
                             <div class="card-body text-center">
-                            '.$row['Source_ad'] .' <br/>
-                            '.$row['destination'] .'<br/>
-                            '.$row['ad_date'] .'<br/>
-                           
-                            <h4> Bid Price : '.$row['bid_price'].'  </h4> 
+                            ' . $row['Source_ad'] . ' <br/>
+                            ' . $row['destination'] . '<br/>
+                            ' . $row['ad_date'] . '<br/>
+                            
+                            <h4> Bid Price : ' . $row['bid_price'] . '  </h4> 
                             <span class="label label-warning">Not Yet Confirmed</span>
                             </div>
                         </div>
                         <br />
                     </div>';
-                } else if($status = '1' and $deliveryStatus = 'Delivered'){
-                    $url = 'update_delivery.php?id=' . $row['bidId'];
-                    echo '<div class="col-sm-4" style="margin:5px;">
+                    } else if ($status = '1' && $row['isDelivered'] == 'Delivered') {
+                        $url = 'update_delivery.php?id=' . $row['bidId'];
+                       
+                        echo '<div class="col-sm-4" style="margin:5px;">
                     <div class="card">
                         <div class="card-body text-center">
-                        '.$row['Source_ad'] .' <br/>
-                        '.$row['destination'] .'<br/>
-                        '.$row['ad_date'] .'<br/>
-                        <h4> Bid Price : '.$row['bid_price'].'  </h4>  
+                        ' . $row['Source_ad'] . ' <br/>
+                        ' . $row['destination'] . '<br/>
+                        ' . $row['ad_date'] . '<br/>
+                        <h4> Bid Price : ' . $row['bid_price'] . '  </h4>  
                         <span class="label label-success">Confirmed</span>    
                         <br/>
-                        <p><strong>Delivery Status: </strong> '.$row['isDelivered'] .'</p>
+                        <p><strong>Delivery Status: </strong> ' . $row['isDelivered'] . '</p>
                         
                         </div>
                     </div>
                     <br />
                 </div>';
+                    } else if ($status = '1' and $deliveryStatus == 'Not Delivered') {
+                        $url = 'update_delivery.php?id=' . $row['bidId'];
+                        echo '<div class="col-sm-4" style="margin:5px;">
+                        <div class="card">
+                            <div class="card-body text-center">
+                            ' . $row['Source_ad'] . ' <br/>
+                            ' . $row['destination'] . '<br/>
+                            ' . $row['ad_date'] . '<br/>
+                            <h4> Bid Price : ' . $row['bid_price'] . '  </h4>  
+                            <span class="label label-success">Confirmed</span>    
+                            <br/>
+                            <p><strong>Delivery Status: </strong> ' . $row['isDelivered'] . '</p>
+                            
+                            <a href="update_delivery.php?id=' . $row['bidId'] . '" class="btn btn-info">Update the Status</a>
+                            </div>
+                        </div>
+                        <br />
+                    </div>';
                     } else {
                         $url = 'update_delivery.php?id=' . $row['bidId'];
                         echo '<div class="col-sm-4" style="margin:5px;">
                         <div class="card">
                             <div class="card-body text-center">
-                            '.$row['Source_ad'] .' <br/>
-                            '.$row['destination'] .'<br/>
-                            '.$row['ad_date'] .'<br/>
-                            <h4> Bid Price : '.$row['bid_price'].'  </h4>  
+                            ' . $row['Source_ad'] . ' <br/>
+                            ' . $row['destination'] . '<br/>
+                            ' . $row['ad_date'] . '<br/>
+                            <h4> Bid Price : ' . $row['bid_price'] . '  </h4>  
                             <span class="label label-success">Confirmed</span>    
                             <br/>
-                            <p><strong>Delivery Status: </strong> '.$row['isDelivered'] .'</p>
+                            <p><strong>Delivery Status: </strong> ' . $row['isDelivered'] . '</p>
                             
-                            <a href="update_delivery.php?id=' . $row['bidId'].'" class="btn btn-info">Update the Status</a>
+                            <a href="update_delivery.php?id=' . $row['bidId'] . '" class="btn btn-info">Update the Status</a>
                             </div>
                         </div>
                         <br />
