@@ -25,19 +25,26 @@ if ($_POST) {
 	$num = md5(rand(5, 10));
 	$finalpasss = substr($num, -8);
 
-	$query = $query = "insert into user_s(S_fname,S_lname,S_mail,S_mnumber,S_address,S_password,S_security_question,S_security_answer,S_status,S_active) 
-		VALUES('$Shipper_fname','$Shipper_lname','$Shipper_mail','$Shipper_number','$Shipper_address','$Shipper_password','$sec_type','$sec_ans','2','0')";
-	$sql = mysqli_query($con, $query) or die(mysqli_error($query));
-	if ($sql) {
-		//echo "date inserted";
-		$eename = $Shipper_fname;
-		$eemail = $Shipper_mail;
-		$password = $Shipper_password;
-		$num = $Shipper_number;
-		header("refresh:3;url=login.php");
+
+	$select = mysqli_query($con, "SELECT `S_mail` FROM `user_s` WHERE `S_mail` = '" . $_POST['SHIPPER_mail'] . "'") or exit(mysqli_error($connectionID));
+	if (mysqli_num_rows($select)) {
+		echo "<div class='container'> <div class='alert alert-danger' role='alert' style='text-align:center; margin-top:25%;padding-top:2%;padding-bottom:2%' ></h4> <strong>Ohh Snap!!!</strong> Wrong Credential Please check Email & pasword Which you have been Used!! & contact admin if you have been Blocked!!</h4></div> </div>";
+		header("refresh:4;url=login.php");
 	} else {
-		echo " error over query!!";
-		header("refresh:3;url=login.php");
+		$query = $query = "insert into user_s(S_fname,S_lname,S_mail,S_mnumber,S_address,S_password,S_security_question,S_security_answer,S_status,S_active) 
+		VALUES('$Shipper_fname','$Shipper_lname','$Shipper_mail','$Shipper_number','$Shipper_address','$Shipper_password','$sec_type','$sec_ans','2','0')";
+		$sql = mysqli_query($con, $query) or die(mysqli_error($query));
+		if ($sql) {
+			//echo "date inserted";
+			$eename = $Shipper_fname;
+			$eemail = $Shipper_mail;
+			$password = $Shipper_password;
+			$num = $Shipper_number;
+			header("refresh:3;url=login.php");
+		} else {
+			echo " error over query!!";
+			header("refresh:3;url=login.php");
+		}
 	}
 	$con->close();
 }
