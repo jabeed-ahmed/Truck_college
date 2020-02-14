@@ -25,7 +25,6 @@ if ($_POST) {
 	$num = md5(rand(5, 10));
 	$finalpasss = substr($num, -8);
 
-
 	$select = mysqli_query($con, "SELECT `S_mail` FROM `user_s` WHERE `S_mail` = '" . $_POST['SHIPPER_mail'] . "'") or exit(mysqli_error($connectionID));
 	if (mysqli_num_rows($select)) {
 		echo "<div class='container'> <div class='alert alert-danger' role='alert' style='text-align:center; margin-top:25%;padding-top:2%;padding-bottom:2%' ></h4> <strong>Ohh Snap!!!</strong> Wrong Credential Please check Email & pasword Which you have been Used!! & contact admin if you have been Blocked!!</h4></div> </div>";
