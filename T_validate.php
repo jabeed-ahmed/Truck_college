@@ -32,9 +32,10 @@ if ($_POST) {
   $num = md5(rand(1, 100000));
   $finalpass = substr($num, -8);
 
-  $select = mysqli_query($con, "SELECT `T_mail` FROM `user_t` WHERE `T_mail` = '" . $_POST['carrier_mail'] . "'") or exit(mysqli_error($connectionID));
+  $select = mysqli_query($con, "SELECT `T_mail` FROM `user_t` WHERE `T_mail` = '" . $_POST['CARRIER_mail'] . "'") or exit(mysqli_error($connectionID));
   if (mysqli_num_rows($select)) {
-    echo "<div class='container'> <div class='alert alert-danger' role='alert' style='text-align:center; margin-top:25%;padding-top:2%;padding-bottom:2%' ></h4> <strong>Ohh Snap!!!</strong> Wrong Credential Please check Email & pasword Which you have been Used!! & contact admin if you have been Blocked!!</h4></div> </div>";
+    echo "<div class='container'> <div class='alert alert-danger' role='alert' 
+    style='text-align:center; margin-top:25%;padding-top:2%;padding-bottom:2%' ></h4> <strong>Ohh Snap!!!</strong> Wrong Credential Please check Email & pasword Which you have been Used!! & contact admin if you have been Blocked!!</h4></div> </div>";
     header("refresh:4;url=login.php");
   } else {
     $query = "INSERT INTO `user_t`( T_id,T_org_name, T_owner_name, T_mail, T_address, 
