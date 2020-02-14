@@ -95,8 +95,6 @@ if (isset($_SESSION['mail'])) {
               <input type="text" name="secans" class="form-control" required placeholder="Your answer">
             </div>
           </div><br>
-
-
           <div>
             <button type="submit" class="btn btn-success btn-block" id="Hide">Hire Out</button>
             <button type="reset" class="btn btn-Primary btn-block">Reset</button>

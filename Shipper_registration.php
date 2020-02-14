@@ -81,10 +81,6 @@ if (isset($_SESSION['mail'])) {
             </div>
           </div>
 
-          <div align="center">
-            <div class="g-recaptcha" data-sitekey="6LfX7nQUAAAAACZdSxmsMfk765RdBf65BEh9kHx9"></div>
-          </div> <br>
-
           <div>
             <button type="submit" class="btn btn-success btn-block" id="Hide">Hire Out</button>
             <button type="reset" class="btn btn-Primery btn-block">Reset</button>
