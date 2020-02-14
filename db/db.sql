@@ -2,10 +2,10 @@
 -- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 09, 2020 at 02:11 PM
+-- Host: localhost
+-- Generation Time: Feb 14, 2020 at 02:59 PM
 -- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.33
+-- PHP Version: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -79,7 +79,9 @@ INSERT INTO `ad` (`AD_id`, `S_id`, `Source_ad`, `destination`, `luggage`, `type_
 (16, 7, 'Udupi', 'Mangalore', 'Hard', 'Heavy Items', '20', 10000, 0, '2020-02-07', '4-Wheel,Close', 'test', '2020-02-29'),
 (17, 7, 'Manipal', 'Kumta', 'Soft', 'House Hold', '2', 1000, 1, '2020-02-06', '4-Wheel', 'erwr', '2020-02-07'),
 (18, 7, 'Items', 'Mangalore', 'Soft', 'Glass', '24', 5000, 1, '2333-03-12', '4-Wheel,Open', 't', '2020-02-07'),
-(19, 7, 'Bangalore', 'Mangalore', 'Hard', 'Furniture', '12', 11998, 1, '2020-02-14', '4-Wheel', 'Rope', '2020-02-08');
+(19, 7, 'Bangalore', 'Mangalore', 'Hard', 'Furniture', '12', 11998, 1, '2020-02-14', '4-Wheel', 'Rope', '2020-02-08'),
+(20, 7, 'Shipper Ad ', 'Bangalore', 'Liquid', 'Others', '0', 50000, 1, '2020-02-14', '4-Wheel', 'nothing', '2020-02-14'),
+(21, 7, 'testte', 'test', 'test', 'test', '1', 444, 1, '2020-02-14', '4-Wheel', '32', '2020-02-14');
 
 -- --------------------------------------------------------
 
@@ -146,15 +148,24 @@ CREATE TABLE `bid_items` (
   `userId` int(11) NOT NULL,
   `bid_price` int(11) NOT NULL,
   `adOwnerId` int(11) DEFAULT NULL,
-  `isDelivered` varchar(55) DEFAULT 'Not Delivered'
+  `isDelivered` varchar(55) DEFAULT 'Not Delivered',
+  `CreatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bid_items`
 --
 
-INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`, `adOwnerId`, `isDelivered`) VALUES
-(7, 16, 1, 18, 50, 7, 'Delivered');
+INSERT INTO `bid_items` (`bidId`, `adId`, `status`, `userId`, `bid_price`, `adOwnerId`, `isDelivered`, `CreatedAt`) VALUES
+(7, 16, 1, 18, 50, 7, 'Delivered', '2020-02-12 00:00:00');
+
+--
+-- Triggers `bid_items`
+--
+DELIMITER $$
+CREATE TRIGGER `today` BEFORE INSERT ON `bid_items` FOR EACH ROW SET New.CreatedAt = NOW()
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -317,7 +328,8 @@ INSERT INTO `user_s` (`S_id`, `S_fname`, `S_lname`, `S_mail`, `S_mnumber`, `S_ad
 (1, 'Parmar', 'Viral', 'parmarviral93@gmail.com', 1, 'Talaja, Bhavanagar', 'd163e820', '', '', 2, 0),
 (2, 'Akshat', 'Soni', 'akshatsoni64@gmial.com', 5, 'Ahemedabad', '12345', 'What is your favourite food?', 'Vadapav', 2, 0),
 (3, 'viral', 'Parmar', 'ply4game@gmail.com', 2147483647, 'talaja ', '7eb1b2dc', 'What is your first Mobile modal?', 'J7', 2, 0),
-(7, 'Jabeed', 'Ahmed', 'shipper@test.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 1, 0);
+(7, 'Jabeed', 'Ahmed', 'shipper@test.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 1, 0),
+(8, 'suveg', 'iyer', 'suveg@gmail.com', 9886746058, 'Near Vijaya Bank', '1234', 'What is your favourite place?', 'Idli', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -351,7 +363,8 @@ INSERT INTO `user_t` (`T_id`, `T_org_name`, `T_owner_name`, `T_mail`, `T_address
 (16, 'LogImp', 'Prince Shah', 'sp@gmail.com', 'Bhuj', 'Open Truck', 2, 40212101, 1201245, 'Bhavanagar', '74a318d5', '', '', 2, 0),
 (17, 'sakti trucks', 'dinesh makwana', 'Sp26n12@gmail.com', 'dhorka', '6-wheel,8-wheel', 7096942284, 799042, 12, 'mumbai,ahmedabad,surat', '12345678', '', '', 2, 0),
 (18, 'Carrier', 'Carrier', 'carrier@test.com', 'test', 'Truck', 8736273278, 8736273278, 4, 'test', '1234', 'What is your favourite food?', 'ildi', 2, 0),
-(19, 'Udupi Carrier', 'Madesha', 'madesha@carrier.com', 'Near Vijaya Bank', 'Truck', 9886746058, 9886746058, 12, 'Loading', '1234', 'What is your favourite food?', 'Idli', 1, 0);
+(19, 'Udupi Carrier', 'Madesha', 'madesha@carrier.com', 'Near Vijaya Bank', 'Truck', 9886746058, 9886746058, 12, 'Loading', '1234', 'What is your favourite food?', 'Idli', 1, 0),
+(20, 'Jabeed', 'Madesha', 'jabeed@gmail.com', 'Near Vijaya Bank', '12', 9886746058, 9886746058, 12, 'Loading', '1234', 'What is your favourite food?', 'Idli', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -454,7 +467,8 @@ ALTER TABLE `status_payment`
 -- Indexes for table `user_s`
 --
 ALTER TABLE `user_s`
-  ADD PRIMARY KEY (`S_id`);
+  ADD PRIMARY KEY (`S_id`),
+  ADD UNIQUE KEY `UC_Person` (`S_mail`);
 
 --
 -- Indexes for table `user_t`
@@ -476,7 +490,7 @@ ALTER TABLE `account_info`
 -- AUTO_INCREMENT for table `ad`
 --
 ALTER TABLE `ad`
-  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `AD_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -536,13 +550,13 @@ ALTER TABLE `status_payment`
 -- AUTO_INCREMENT for table `user_s`
 --
 ALTER TABLE `user_s`
-  MODIFY `S_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `S_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_t`
 --
 ALTER TABLE `user_t`
-  MODIFY `T_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `T_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
