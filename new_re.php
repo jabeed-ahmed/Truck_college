@@ -54,30 +54,39 @@ require('Session.php');
               <tbody>
                 <?php
                 $mail = $_SESSION['mail'];
-                $query = "SELECT `source_ad`, `no_destination`, `order_date`, `ad_date` ,`ad_id` FROM `ad` where s_id=(select s_id from user_s where s_mail='$mail')";
+
+                $USER_ID = $_SESSION['user_id'];
+
+                $query = "SELECT ad.Source_ad, ad.destination, bid.CreatedAt, ad.AD_ID, bid.bid_price FROM `bid_items` bid 
+                INNER JOIN ad ON ad.AD_id = bid.adId WHERE bid.userId = 18 and bid.status = 1";
+
+
+                // $query = "SELECT * FROM `bid_items` bid 
+                // INNER JOIN user_t u on bid.userId = u.T_id where bid.status = 1 and bid.userId = $USER_ID";
+
+                // $query = "SELECT `source_ad`, `destination`, `order_date`, 
+                // `ad_date` ,`ad_id` FROM `ad` where s_id=(select s_id from user_s where s_mail='$mail')";
                 $result = mysqli_query($con, $query) or die(mysqli_error($con));
 
                 if (mysqli_num_rows($result) > 0) {
                   while ($row = mysqli_fetch_array($result)) {
                     $source = $row[0];
                     $no_destination = $row[1];
-                    $order_date = $row[3];
+                    $order_date = $row[2];
                     $ad_date = $row[2];
-                    echo $ad = $row[4];
+                    $ad_id = $row[3];
+                    $cost = $row[4];
 
-
-                    $num = md5(rand($ad, 100000));
-                    $finalpass = substr($num, -8);
+                    // $num = md5(rand($ad, 100000));
+                    // $finalpass = substr($num, -8);
 
                 ?>
                     <tr>
-                      <td> <?php echo $finalpass; ?></td>
+                      <td> <?php echo $ad_id; ?></td>
                       <td> <?php echo $source; ?> </td>
                       <td><?php echo $no_destination; ?></td>
                       <td> <?php echo $order_date; ?></td>
-                      <td> <?php echo $ad_date; ?></td>
-                      <input type="hidden" name="ad_id" VALUE="<?php echo $finalpass; ?>" />
-                      <th><input type="submit" class="btn btn-success" style="float:right;height:28px;width:55px;margin:7px;font-size:15px;margin-bottom:7px;padding-top:2px;padding-left:7px;font-weight:bold;border-radius:15px;" value="Open"></th>
+                      <td> <?php echo $cost; ?></td>
                     </tr>
                 <?php
                   }
