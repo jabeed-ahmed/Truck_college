@@ -387,7 +387,8 @@ require_once("Session.php");
             <div class="modal-body">
               <div>
                 <label for="fname">Transport Company's Name *</label>
-                <input type="name" name="t_name" class="form-control" placeholder="Enter the Company's Name" autofocus required value="<?php echo $Tname ?>"><br>
+                <input type="name" name="t_name" class="form-control" 
+                placeholder="Enter the Company's Name" autofocus required value="<?php echo $Tname ?>"><br>
               </div>
               <div>
                 <label for="fname">Owner's Name *</label>
