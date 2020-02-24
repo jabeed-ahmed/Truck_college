@@ -47,7 +47,7 @@ require('Session.php');
                   <th>Source</th>
                   <td>Destination</td>
                   <td>Date</td>
-                  <th>Order-date</th>
+                  <th>Cost</th>
                   <th></th>
                 </tr>
               </thead>
@@ -59,7 +59,7 @@ require('Session.php');
 
                 $query = "SELECT ad.Source_ad, ad.destination, bid.CreatedAt, ad.AD_ID, bid.bid_price
                  FROM `bid_items` bid 
-                INNER JOIN ad ON ad.AD_id = bid.adId WHERE bid.userId = $USER_ID and bid.status = 1";
+                INNER JOIN ad ON ad.AD_id = bid.adId WHERE  bid.status = 1";
 
 
                 // $query = "SELECT * FROM `bid_items` bid 
