@@ -76,7 +76,8 @@ require('Nav.php');
                             ' . $row['ad_date'] . '<br/>
                             
                             <h4> Bid Price : ' . $row['bid_price'] . '  </h4> 
-                            <span class="label label-warning">Not Yet Confirmed</span>
+                            <span class="label label-warning">Not Yet Confirmed</span><br />
+                            <a href="delete_bid.php?id=' . $row['bidId'] . '" class="btn btn-warning">Cancel the bid</a>
                             </div>
                         </div>
                         <br />
