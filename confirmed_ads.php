@@ -56,9 +56,10 @@ require('Nav.php');
         <?php
 
         $userId = $_SESSION['user_id'];
-        $sql = "SELECT bid.status as bidStatus, bid.isDelivered, bid.bid_price,
-        a.Source_ad,  a.destination, a.ad_date FROM `bid_items` bid 
-        INNER JOIN ad a ON bid.adId = a.AD_id where bid.adOwnerId = $userId";
+        $sql = "SELECT bid.status as bidStatus, bid.userId, 
+        bid.isDelivered, bid.bid_price, t.T_owner_name as name, 
+        t.T_mail as email, t.T_number as number, t.T_address as address, a.Source_ad, a.destination, a.ad_date FROM `bid_items` bid INNER JOIN ad a ON bid.adId = a.AD_id 
+        INNER JOIN user_t t ON t.T_id = bid.userId where bid.adOwnerId = $userId";
         if ($res = mysqli_query($con, $sql)) {
             if (mysqli_num_rows($res) > 0) {
                 while ($row = mysqli_fetch_array($res)) {
@@ -71,6 +72,10 @@ require('Nav.php');
                             '.$row['Source_ad'] .' <br/>
                             '.$row['destination'] .'<br/>
                             '.$row['ad_date'] .'<br/>
+                            '.$row['name'] .'<br/>
+                            '.$row['email'] .'<br/>
+                            '.$row['number'] .'<br/>
+                            '.$row['address'] .'<br/>
                             <h4> Bid Price : '.$row['bid_price'].'  </h4> 
                             <span class="label label-warning">Not Yet Confirmed</span>
                             </div>
@@ -84,6 +89,10 @@ require('Nav.php');
                             '.$row['Source_ad'] .' <br/>
                             '.$row['destination'] .'<br/>
                             '.$row['ad_date'] .'<br/>
+                            '.$row['name'] .'<br/>
+                            '.$row['email'] .'<br/>
+                            '.$row['number'] .'<br/>
+                            '.$row['address'] .'<br/>
                             <h4> Bid Price : '.$row['bid_price'].'  </h4>  <br />
                             <h3><span class="label label-success">Confirmed</span></h3>
                             <br/>
