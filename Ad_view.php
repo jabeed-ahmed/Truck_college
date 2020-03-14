@@ -148,7 +148,7 @@ require('Session.php');
                       <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">No</button>
                     </div>
                     <div class="col">
-                      <a href='Del_ad.php' class="btn btn-success btn-block">Yes</a>
+                      <a href='Del_ad.php?ad_id=<?php echo $re[0] ?>' class="btn btn-success btn-block">Yes</a>
                     </div>
                   </div>
                 </form>
