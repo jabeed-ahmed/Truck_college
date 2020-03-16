@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style type="text/css">
     .bs-example {
       margin: 20px;
@@ -96,10 +99,35 @@
                                   echo "<td>";  
                                   if($status== 0) {
                                     ?>
-                                     <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> 
-                                        && adId=<?php echo $row["adId"]; ?>" 
-                                        title='Update Record'>
-                                        <span class='btn btn-info'>Confirm & Pay</span>
+                                    
+                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                         Confirm & Pay
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirm & Pay</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                              Do you really want to confirm the bid?
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a href="confirm_bid.php?id=<?php echo $row["bidId"]; ?> 
+                                                  && adId=<?php echo $row["adId"]; ?>" 
+                                                  title='Update Record'>
+                                                  <span class='btn btn-primary'>Confirm & Pay</span>
+                                              </a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                      <?php
                                    } else {
                                     ?>
@@ -123,6 +151,10 @@
               // Close connection
               mysqli_close($con);
               ?>
+
+              <!-- Trigger the modal with a button -->
+<!-- Button trigger modal -->
+
           </div>
       </div>  
     </div>
