@@ -51,16 +51,22 @@
               
               // Attempt select query execution
               $paramId = htmlspecialchars($_GET["id"]);
-              $query = "SELECT bid.bidId, ad.AD_id as adId, ad.Source_ad as sourc_ad, bid.bid_price, ad.price, 
+              $query = "SELECT user_t.T_owner_name as carrier_name, user_t.T_number as number, user_t.T_address as address, bid.bidId, ad.AD_id as adId, bid.UserId as carrierId,  ad.Source_ad as sourc_ad, bid.bid_price, ad.price, 
               bid.status, ad.destination FROM `bid_items` bid 
               Inner JOIN ad 
-              on ad.AD_id = bid.Adid WHERE bid.adid = $paramId";
+              on ad.AD_id = bid.Adid
+              INNER JOIN user_t 
+              On bid.UserId = user_t.T_id
+              WHERE bid.adid = $paramId";
     
               if($result = mysqli_query($con, $query)){
                   if(mysqli_num_rows($result) > 0){
                       echo "<table class='table'>";
                           echo "<thead>";
                               echo "<tr>";
+                                  echo "<th scope='col'>Name</th>";
+                                  echo "<th scope='col'>Phone</th>";
+                                  echo "<th scope='col'>Address</th>";
                                   echo "<th scope='col'>Source</th>";
                                   echo "<th scope='col'>Destination</th>";
                                   echo "<th scope='col'>Bid Price</th>";
@@ -80,6 +86,9 @@
                                   $color = 'btn btn-danger';
                               }
                               echo "<tr>";
+                                  echo "<td>" . $row['carrier_name'] . "</td>";
+                                  echo "<td>" . $row['number'] . "</td>";
+                                  echo "<td>" . $row['address'] . "</td>";
                                   echo "<td>" . $row['sourc_ad'] . "</td>";
                                   echo "<td>" . $row['destination'] . "</td>";
                                   echo "<td>" . $row['bid_price'] . "</td>";
